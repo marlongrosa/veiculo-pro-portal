@@ -50,7 +50,7 @@ const FilterSection = ({ onFilterChange }: FilterSectionProps) => {
     }
   }, [filters.brand]);
 
-  const handleFilterChange = (key: keyof FilterOptions, value: string | number | undefined) => {
+  const handleFilterChange = (key: keyof FilterOptions, value: string | undefined) => {
     // Reset dependent filters when parent filter changes
     if (key === 'state') {
       setFilters(prev => ({ ...prev, [key]: value, city: undefined }));
@@ -121,7 +121,7 @@ const FilterSection = ({ onFilterChange }: FilterSectionProps) => {
               <SelectValue placeholder="Selecione a marca" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todas as marcas</SelectItem>
+              <SelectItem value="all">Todas as marcas</SelectItem>
               {brands.map(brand => (
                 <SelectItem key={brand} value={brand}>{brand}</SelectItem>
               ))}
@@ -140,7 +140,7 @@ const FilterSection = ({ onFilterChange }: FilterSectionProps) => {
               <SelectValue placeholder={filters.brand ? "Selecione o modelo" : "Selecione a marca primeiro"} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todos os modelos</SelectItem>
+              <SelectItem value="all">Todos os modelos</SelectItem>
               {availableModels.map(model => (
                 <SelectItem key={model} value={model}>{model}</SelectItem>
               ))}
@@ -158,7 +158,7 @@ const FilterSection = ({ onFilterChange }: FilterSectionProps) => {
               <SelectValue placeholder="Selecione o estado" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todos os estados</SelectItem>
+              <SelectItem value="all">Todos os estados</SelectItem>
               {states.map(state => (
                 <SelectItem key={state} value={state}>{state}</SelectItem>
               ))}
@@ -177,7 +177,7 @@ const FilterSection = ({ onFilterChange }: FilterSectionProps) => {
               <SelectValue placeholder={filters.state ? "Selecione a cidade" : "Selecione o estado primeiro"} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todas as cidades</SelectItem>
+              <SelectItem value="all">Todas as cidades</SelectItem>
               {availableCities.map(city => (
                 <SelectItem key={city} value={city}>{city}</SelectItem>
               ))}
@@ -195,7 +195,7 @@ const FilterSection = ({ onFilterChange }: FilterSectionProps) => {
               <SelectValue placeholder="Selecione o câmbio" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todos</SelectItem>
+              <SelectItem value="all">Todos</SelectItem>
               <SelectItem value="Manual">Manual</SelectItem>
               <SelectItem value="Automático">Automático</SelectItem>
             </SelectContent>
@@ -212,7 +212,7 @@ const FilterSection = ({ onFilterChange }: FilterSectionProps) => {
               <SelectValue placeholder="Selecione o combustível" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todos</SelectItem>
+              <SelectItem value="all">Todos</SelectItem>
               <SelectItem value="Gasolina">Gasolina</SelectItem>
               <SelectItem value="Etanol">Etanol</SelectItem>
               <SelectItem value="Diesel">Diesel</SelectItem>
