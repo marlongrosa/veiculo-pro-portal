@@ -27,27 +27,27 @@ const Index = () => {
     setTimeout(() => {
       const filtered = vehicles.filter(vehicle => {
         // Brand filter
-        if (filters.brand && vehicle.brand !== filters.brand) {
+        if (filters.brand && filters.brand !== "all" && vehicle.brand !== filters.brand) {
           return false;
         }
         
         // Model filter
-        if (filters.model && vehicle.model !== filters.model) {
+        if (filters.model && filters.model !== "all" && vehicle.model !== filters.model) {
           return false;
         }
         
         // State filter
-        if (filters.state && vehicle.location.state !== filters.state) {
+        if (filters.state && filters.state !== "all" && vehicle.location.state !== filters.state) {
           return false;
         }
         
         // City filter
-        if (filters.city && vehicle.location.city !== filters.city) {
+        if (filters.city && filters.city !== "all" && vehicle.location.city !== filters.city) {
           return false;
         }
         
         // Region filter
-        if (filters.region && vehicle.location.region !== filters.region) {
+        if (filters.region && filters.region !== "all" && vehicle.location.region !== filters.region) {
           return false;
         }
         
@@ -68,12 +68,12 @@ const Index = () => {
         }
         
         // Transmission filter
-        if (filters.transmission && vehicle.transmission !== filters.transmission) {
+        if (filters.transmission && filters.transmission !== "all" && vehicle.transmission !== filters.transmission) {
           return false;
         }
         
         // Fuel filter
-        if (filters.fuel && vehicle.fuel !== filters.fuel) {
+        if (filters.fuel && filters.fuel !== "all" && vehicle.fuel !== filters.fuel) {
           return false;
         }
         
