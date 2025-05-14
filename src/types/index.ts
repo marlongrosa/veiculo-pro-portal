@@ -63,8 +63,8 @@ export interface FilterOptions {
   priceMax?: number;
   yearMin?: number;
   yearMax?: number;
-  transmission?: 'Manual' | 'Automático' | '';
-  fuel?: 'Gasolina' | 'Etanol' | 'Diesel' | 'Elétrico' | 'Flex' | '';
+  transmission?: 'Manual' | 'Automático' | 'all' | '';
+  fuel?: 'Gasolina' | 'Etanol' | 'Diesel' | 'Elétrico' | 'Flex' | 'all' | '';
   search?: string;
 }
 

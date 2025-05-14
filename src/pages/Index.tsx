@@ -69,14 +69,14 @@ const Index = () => {
         
         // Transmission filter - fixed TypeScript error
         if (filters.transmission && 
-            filters.transmission !== "" && 
+            filters.transmission !== "all" && 
             vehicle.transmission !== filters.transmission) {
           return false;
         }
         
         // Fuel filter - fixed TypeScript error
         if (filters.fuel && 
-            filters.fuel !== "" && 
+            filters.fuel !== "all" && 
             vehicle.fuel !== filters.fuel) {
           return false;
         }
