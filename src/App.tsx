@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider as SupabaseAuthProvider } from "./hooks/use-auth";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 // Pages
@@ -14,6 +15,7 @@ import AdminDashboard from "./pages/admin/Index";
 import Vehicles from "./pages/admin/Vehicles";
 import Sellers from "./pages/admin/Sellers";
 import Proposals from "./pages/admin/Proposals";
+import AuthPage from "./pages/auth/AuthPage";
 
 const queryClient = new QueryClient();
 
@@ -37,42 +39,45 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/admin/login" element={<Login />} />
-            
-            {/* Protected Admin Routes */}
-            <Route path="/admin" element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/vehicles" element={
-              <ProtectedRoute>
-                <Vehicles />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/sellers" element={
-              <ProtectedRoute>
-                <Sellers />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/proposals" element={
-              <ProtectedRoute>
-                <Proposals />
-              </ProtectedRoute>
-            } />
-            
-            {/* Catch-all route for 404 */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+      <SupabaseAuthProvider>
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<Index />} />
+              <Route path="/admin/login" element={<Login />} />
+              <Route path="/auth" element={<AuthPage />} />
+              
+              {/* Protected Admin Routes */}
+              <Route path="/admin" element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/vehicles" element={
+                <ProtectedRoute>
+                  <Vehicles />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/sellers" element={
+                <ProtectedRoute>
+                  <Sellers />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/proposals" element={
+                <ProtectedRoute>
+                  <Proposals />
+                </ProtectedRoute>
+              } />
+              
+              {/* Catch-all route for 404 */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
+      </SupabaseAuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

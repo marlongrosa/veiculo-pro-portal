@@ -67,13 +67,17 @@ const Index = () => {
           return false;
         }
         
-        // Transmission filter
-        if (filters.transmission && filters.transmission !== "all" && vehicle.transmission !== filters.transmission) {
+        // Transmission filter - fixed TypeScript error
+        if (filters.transmission && 
+            filters.transmission !== "" && 
+            vehicle.transmission !== filters.transmission) {
           return false;
         }
         
-        // Fuel filter
-        if (filters.fuel && filters.fuel !== "all" && vehicle.fuel !== filters.fuel) {
+        // Fuel filter - fixed TypeScript error
+        if (filters.fuel && 
+            filters.fuel !== "" && 
+            vehicle.fuel !== filters.fuel) {
           return false;
         }
         

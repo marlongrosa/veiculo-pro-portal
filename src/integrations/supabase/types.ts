@@ -9,16 +9,200 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          cpf: string | null
+          created_at: string | null
+          email: string
+          id: string
+          name: string
+          phone: string | null
+          role: string | null
+        }
+        Insert: {
+          cpf?: string | null
+          created_at?: string | null
+          email: string
+          id: string
+          name: string
+          phone?: string | null
+          role?: string | null
+        }
+        Update: {
+          cpf?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string
+          phone?: string | null
+          role?: string | null
+        }
+        Relationships: []
+      }
+      proposals: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          id: string
+          message: string | null
+          name: string | null
+          phone: string | null
+          status: Database["public"]["Enums"]["proposal_status"] | null
+          vehicle_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string | null
+          phone?: string | null
+          status?: Database["public"]["Enums"]["proposal_status"] | null
+          vehicle_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string | null
+          phone?: string | null
+          status?: Database["public"]["Enums"]["proposal_status"] | null
+          vehicle_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proposals_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "v_proposals_with_vehicles"
+            referencedColumns: ["vehicle_id"]
+          },
+          {
+            foreignKeyName: "proposals_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sellers: {
+        Row: {
+          city: string | null
+          created_at: string | null
+          email: string
+          id: string
+          name: string
+          phone: string | null
+          state: string | null
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          name: string
+          phone?: string | null
+          state?: string | null
+        }
+        Update: {
+          city?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string
+          phone?: string | null
+          state?: string | null
+        }
+        Relationships: []
+      }
+      vehicles: {
+        Row: {
+          brand: string
+          created_at: string | null
+          description: string | null
+          features: string | null
+          fuel: string | null
+          id: string
+          images: string | null
+          location: Json | null
+          mileage: number | null
+          model: string
+          price: number | null
+          seller_id: string | null
+          status: Database["public"]["Enums"]["vehicle_status"] | null
+          transmission: string | null
+          updated_at: string | null
+          year: number
+        }
+        Insert: {
+          brand: string
+          created_at?: string | null
+          description?: string | null
+          features?: string | null
+          fuel?: string | null
+          id?: string
+          images?: string | null
+          location?: Json | null
+          mileage?: number | null
+          model: string
+          price?: number | null
+          seller_id?: string | null
+          status?: Database["public"]["Enums"]["vehicle_status"] | null
+          transmission?: string | null
+          updated_at?: string | null
+          year: number
+        }
+        Update: {
+          brand?: string
+          created_at?: string | null
+          description?: string | null
+          features?: string | null
+          fuel?: string | null
+          id?: string
+          images?: string | null
+          location?: Json | null
+          mileage?: number | null
+          model?: string
+          price?: number | null
+          seller_id?: string | null
+          status?: Database["public"]["Enums"]["vehicle_status"] | null
+          transmission?: string | null
+          updated_at?: string | null
+          year?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      v_proposals_with_vehicles: {
+        Row: {
+          brand: string | null
+          customer_email: string | null
+          customer_name: string | null
+          customer_phone: string | null
+          message: string | null
+          model: string | null
+          price: number | null
+          proposal_created_at: string | null
+          proposal_id: string | null
+          proposal_status: Database["public"]["Enums"]["proposal_status"] | null
+          seller_email: string | null
+          seller_id: string | null
+          seller_name: string | null
+          vehicle_id: string | null
+          year: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      proposal_status: "pending" | "contacted" | "accepted" | "rejected"
+      vehicle_status: "available" | "reserved" | "sold"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +317,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      proposal_status: ["pending", "contacted", "accepted", "rejected"],
+      vehicle_status: ["available", "reserved", "sold"],
+    },
   },
 } as const

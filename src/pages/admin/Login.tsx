@@ -1,29 +1,33 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { users } from "@/data/mockData";
+import { useAuth as useSupabaseAuth } from "@/hooks/use-auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { signIn, user } = useSupabaseAuth();
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    // Redirect to admin dashboard if already logged in
+    if (user) {
+      navigate("/admin");
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
     try {
-      const success = await login(email, password);
-      if (success) {
-        navigate("/admin");
-      }
+      await signIn(email, password);
+      navigate("/admin");
     } catch (error) {
       console.error("Login failed:", error);
     } finally {
@@ -74,16 +78,6 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-              </div>
-              
-              <div className="text-sm text-gray-500">
-                <p>Para demonstração, use:</p>
-                <ul className="list-disc pl-5">
-                  {users.map(user => (
-                    <li key={user.id}>Email: <strong>{user.email}</strong></li>
-                  ))}
-                  <li>Senha: <strong>admin123</strong></li>
-                </ul>
               </div>
             </CardContent>
             
